@@ -40,7 +40,8 @@ public class AviationUtilities {
     private static final BigDecimal ISA_PRESSURE_LAPSE_RATE_FEET_PER_HPA = new BigDecimal("27");
 
     /**
-     * For a given pressure altitude and outside temperature, calculate the density altitude
+     * For a given pressure altitude and outside temperature, calculate the density altitude using the formula:
+     * Density Altitude in Feet = Pressure Altitude in Feet + (120 x (OAT°C – ISA Temperature °C))
      *
      * @param pressureAltitudeFeet         Pressure altitude in feet above ISA MSL (1013,25 hPa)
      * @param outsideAirTemperatureCelsius Outside air temperature in Celsius
