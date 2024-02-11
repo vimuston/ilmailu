@@ -1,4 +1,4 @@
-package ilmailu;
+package fi.ilmailu;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import static fi.ilmailu.AviationUtilities.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IlmailuTest {
@@ -58,14 +59,13 @@ public class IlmailuTest {
             for (int qnh = qnhBegin; qnh <= qnhEnd; qnh++) {
                 for (int temperature = temperatureBegin; temperature <= temperatureEnd; temperature++) {
 
-                    BigDecimal pressureAltitude = Utils.pressureAltitudeFromIndicatedAltitude(indicatedAltitude, qnh);
-                    BigDecimal densityAltitude = Utils.densityAltitudeFeet(pressureAltitude, temperature);
-                    BigDecimal trueAltitude = Utils.trueAltitudeFromIndicatedAltitude(indicatedAltitude, temperature);
+                    BigDecimal pressureAltitude = pressureAltitudeFromIndicatedAltitude(indicatedAltitude, qnh);
+                    BigDecimal densityAltitude = densityAltitudeFeet(pressureAltitude, temperature);
+                    BigDecimal trueAltitude = trueAltitudeFromIndicatedAltitude(indicatedAltitude, temperature);
 
-                    if (!Utils.isColderThanIsa(pressureAltitude, BigDecimal.valueOf(temperature))) {
+                    if (!isColderThanIsa(pressureAltitude, BigDecimal.valueOf(temperature))) {
                         continue;
                     }
-
 
                     // [A] (Tiheyskorkeus on) Pienempi kuin painekorkeus ja suunnilleen sama kuin tosikorkeus.
                     if (!isOptionEliminated("A") && densityAltitude.compareTo(pressureAltitude) > 0) {
@@ -129,21 +129,21 @@ public class IlmailuTest {
 
     @Test
     public void testIsaDeviation() {
-        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("0"), new BigDecimal("15")));
-        assertEquals(new BigDecimal("1.98"), Utils.isaDeviation(new BigDecimal("1000"), new BigDecimal("15")));
-        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("1000"), new BigDecimal("13.02")));
-        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("2000"), new BigDecimal("11.04")));
+        assertEquals(new BigDecimal("0.00"), isaDeviation(new BigDecimal("0"), new BigDecimal("15")));
+        assertEquals(new BigDecimal("1.98"), isaDeviation(new BigDecimal("1000"), new BigDecimal("15")));
+        assertEquals(new BigDecimal("0.00"), isaDeviation(new BigDecimal("1000"), new BigDecimal("13.02")));
+        assertEquals(new BigDecimal("0.00"), isaDeviation(new BigDecimal("2000"), new BigDecimal("11.04")));
     }
 
     @Test
     public void testColderThanIsa() {
-        assertTrue(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(14)));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(15)));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(16)));
+        assertTrue(isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(14)));
+        assertFalse(isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(15)));
+        assertFalse(isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(16)));
 
-        assertTrue(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.01")));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.02")));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.03")));
+        assertTrue(isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.01")));
+        assertFalse(isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.02")));
+        assertFalse(isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.03")));
     }
 
 

@@ -1,4 +1,4 @@
-package ilmailu;
+package fi.ilmailu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Utils {
-    private static final Logger logger = LoggerFactory.getLogger(Utils.class);
+public class AviationUtilities {
+    private static final Logger logger = LoggerFactory.getLogger(AviationUtilities.class);
 
     /**
      * Constant for ISA (International Standard Atmosphere) Barometric Pressure at Sea Level in hPa

@@ -2,11 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>fi</groupId>
-    <artifactId>ilmailu</artifactId>
+    <groupId>fi.ilmailu</groupId>
+    <artifactId>aviation-utils</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>ilmailu</name>
+    <name>Aviation Utilities</name>
+    <description>Tools for calculating various aviation related numbers</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
