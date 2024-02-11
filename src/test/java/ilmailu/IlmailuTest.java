@@ -19,7 +19,6 @@ public class IlmailuTest {
 
     private static final Map<String, String> optionsTexts = new HashMap<>();
 
-
     @BeforeAll
     public static void beforeAll() {
         optionsTexts.put("A", "(Tiheyskorkeus on) Pienempi kuin painekorkeus ja suunnilleen sama kuin tosikorkeus.");
@@ -34,38 +33,6 @@ public class IlmailuTest {
         optionsEliminated.put("B", false);
         optionsEliminated.put("C", false);
         optionsEliminated.put("D", false);
-    }
-
-    @Test
-    public void testOptionsEliminated() {
-        assertFalse(isAllOptionsElminated());
-        optionsEliminated.put("A", true);
-        assertFalse(isAllOptionsElminated());
-        optionsEliminated.put("B", true);
-        assertFalse(isAllOptionsElminated());
-        optionsEliminated.put("C", true);
-        assertFalse(isAllOptionsElminated());
-        optionsEliminated.put("D", true);
-        assertTrue(isAllOptionsElminated());
-    }
-
-    @Test
-    public void testIsaDeviation() {
-        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("0"), new BigDecimal("15")));
-        assertEquals(new BigDecimal("1.98"), Utils.isaDeviation(new BigDecimal("1000"), new BigDecimal("15")));
-        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("1000"), new BigDecimal("13.02")));
-        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("2000"), new BigDecimal("11.04")));
-    }
-
-    @Test
-    public void testColderThanIsa() {
-        assertTrue(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(14)));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(15)));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(16)));
-
-        assertTrue(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.01")));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.02")));
-        assertFalse(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.03")));
     }
 
     @Test
@@ -87,7 +54,7 @@ public class IlmailuTest {
         logAssumptions();
 
         OUTER:
-        for (int indicatedAltitude = altitudeBegin; indicatedAltitude <= altitudeEnd; indicatedAltitude+=100) {
+        for (int indicatedAltitude = altitudeBegin; indicatedAltitude <= altitudeEnd; indicatedAltitude += 100) {
             for (int qnh = qnhBegin; qnh <= qnhEnd; qnh++) {
                 for (int temperature = temperatureBegin; temperature <= temperatureEnd; temperature++) {
 
@@ -144,7 +111,39 @@ public class IlmailuTest {
                 }
             }
         }
+    }
 
+
+    @Test
+    public void testOptionsEliminated() {
+        assertFalse(isAllOptionsElminated());
+        optionsEliminated.put("A", true);
+        assertFalse(isAllOptionsElminated());
+        optionsEliminated.put("B", true);
+        assertFalse(isAllOptionsElminated());
+        optionsEliminated.put("C", true);
+        assertFalse(isAllOptionsElminated());
+        optionsEliminated.put("D", true);
+        assertTrue(isAllOptionsElminated());
+    }
+
+    @Test
+    public void testIsaDeviation() {
+        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("0"), new BigDecimal("15")));
+        assertEquals(new BigDecimal("1.98"), Utils.isaDeviation(new BigDecimal("1000"), new BigDecimal("15")));
+        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("1000"), new BigDecimal("13.02")));
+        assertEquals(new BigDecimal("0.00"), Utils.isaDeviation(new BigDecimal("2000"), new BigDecimal("11.04")));
+    }
+
+    @Test
+    public void testColderThanIsa() {
+        assertTrue(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(14)));
+        assertFalse(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(15)));
+        assertFalse(Utils.isColderThanIsa(new BigDecimal(0), BigDecimal.valueOf(16)));
+
+        assertTrue(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.01")));
+        assertFalse(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.02")));
+        assertFalse(Utils.isColderThanIsa(new BigDecimal(1000), new BigDecimal("13.03")));
     }
 
 
